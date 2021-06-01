@@ -1,0 +1,23 @@
+<launch>
+    <param name="buffer_size" type="int" value="90" />
+    <param name="amplitude" type="int" value="20" />
+    <param name="offset" type="int" value="1" />
+    <param name="frequency" type="int" value="3" />
+    <param name="signal_length" type="int" value="9" />
+    <node pkg="ros_training_2" type="triangle_generator.py" name="triangle_gen">
+         <remap from="~raw" to="/triangle/data" />
+    </node>
+    <node pkg="ros_training_2" type="square_generator.py" name="square_gen">
+        <remap from="~raw" to="/square/data" />
+    </node>
+
+    <node pkg="ros_training_2" type="averager.py" name="triangle_avg">
+        <remap from="~raw" to="/triangle/data" />
+        <remap from="avg" to="/triangle/avg" />
+    </node>
+    <node pkg="ros_training_2" type="averager.py" name="square_avg">
+        <remap from="~raw" to="/square/data" />
+        <remap from="avg" to="/square/avg" />
+    </node>
+</launch>
+
