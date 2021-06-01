@@ -1,0 +1,22 @@
+<launch>
+    <param name="buffer_size" type="int" value="90" />
+    <node pkg="ros_training_2" type="triangle_generator.py" name="triangle_gen">
+         <remap from="~raw" to="/triangle/data" />
+    </node>
+    <node pkg="ros_training_2" type="square_generator.py" name="square_gen">
+        <remap from="~raw" to="/square/data" />
+    </node>
+
+    <node pkg="ros_training_2" type="averager.py" name="triangle_avg">
+        <remap from="~raw" to="/triangle/data" />
+        <remap from="avg" to="/triangle/avg" />
+        <rosparam file="$(find ros_training_2)/config/square_function_parameters.yaml" />
+    </node>
+    <node pkg="ros_training_2" type="averager.py" name="square_avg">
+        <remap from="~raw" to="/square/data" />
+        <remap from="avg" to="/square/avg" />
+        <rosparam file="$(find ros_training_2)/config/triangle_function_parameters.yaml" />
+    </node>
+</launch>
+
+
